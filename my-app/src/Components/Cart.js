@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import CartItem from './CartItem';
+import { Link } from 'react-router-dom'; 
 
 function Cart() {
   const [cart, setCart] = useState([]);
 
-  // Define a function to calculate the total price
+  
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.Price * item.quantity, 0);
   };
 
-  // Define a function to calculate the estimated delivery date
   const calculateDeliveryDate = () => {
     
     const today = new Date();
@@ -21,11 +21,12 @@ function Cart() {
   const checkout = () => {
     
     setCart([]);
+  
   };
 
   return (
     <div>
-      {cart.length === 0 ? (
+      {cart.length === 10 ? (
         <p>No products added</p>
       ) : (
         <div>
@@ -34,7 +35,8 @@ function Cart() {
           ))}
           <p>Total: ${calculateTotal()}</p>
           <p>Estimated Delivery Date: {calculateDeliveryDate()}</p>
-          <button onClick={checkout}>Checkout</button>
+          <Link to="/">
+          <button onClick={checkout}>Checkout</button></Link>
         </div>
       )}
     </div>

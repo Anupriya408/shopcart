@@ -1,0 +1,16 @@
+/* Product.css */
+
+.product-container {
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 20px;
+    max-width: 300px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .product-image {
+    max-width: 100%;
+    height: auto;
+  }
+  

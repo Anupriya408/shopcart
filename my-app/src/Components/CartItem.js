@@ -1,52 +1,64 @@
 import React, { useState } from 'react';
 import CartItem from './CartItem';
+import { useHistory } from 'react-router-dom'; 
 
 function Cart() {
   const [cart, setCart] = useState([]);
 
-  const decreaseQuantity = (itemToRemove) => {
-    
-    const updatedCart = cart.map((item) =>
-      item.Name === itemToRemove.Name
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
-    );
-    setCart(updatedCart);
+  // Define a function to calculate the total price
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.Price * item.quantity, 0);
   };
 
-  const increaseQuantity = (itemToIncrease) => {
-    
-    const updatedCart = cart.map((item) =>
-      item.Name === itemToIncrease.Name
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    );
-    setCart(updatedCart);
+  // Define a function to calculate the estimated delivery date
+  const calculateDeliveryDate = () => {
+    const today = new Date();
+    const deliveryDate = new Date(today);
+    deliveryDate.setDate(today.getDate() + 7); // 7 days from today
+    return deliveryDate.toDateString();
   };
 
-  const removeFromCart = (itemToRemove) => {
-    // Implement logic to remove the item from the cart
-    // Filter out the item to be removed from the cart state
-    const updatedCart = cart.filter((item) => item.Name !== itemToRemove.Name);
-    setCart(updatedCart);
+  const checkout = () => {
+    setCart([]);
+  };
+
+  // Define inline CSS styles
+  const containerStyle = {
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+  };
+
+  const totalStyle = {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    marginTop: '10px',
+  };
+
+  const buttonStyle = {
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginTop: '20px',
   };
 
   return (
-    <div>
-      {cart.length === 0 ? (
+    <div style={containerStyle}>
+      {cart.length === 10 ? (
         <p>No products added</p>
       ) : (
         <div>
           {cart.map((item) => (
-            <CartItem
-              key={item.Name}
-              item={item}
-              decreaseQuantity={() => decreaseQuantity(item)}
-              increaseQuantity={() => increaseQuantity(item)}
-              removeFromCart={() => removeFromCart(item)}
-            />
+            <CartItem key={item.Name} item={item} />
           ))}
-         
+          <p style={totalStyle}>Total: ${calculateTotal()}</p>
+          <p>Estimated Delivery Date: {calculateDeliveryDate()}</p>
+          <button style={buttonStyle} onClick={checkout}>
+            Checkout
+          </button>
         </div>
       )}
     </div>
@@ -54,3 +66,4 @@ function Cart() {
 }
 
 export default Cart;
+
