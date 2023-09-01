@@ -1,0 +1,17 @@
+ {
+  "products":[
+{
+    "Name": "Product 1",
+    "Image": "product1.jpg",
+    "Weight": "10 lbs",
+    "Price": 19.99
+  },
+  {
+    "Name": "Product 2",
+    "Image": "product2.jpg",
+    "Weight": "8 lbs",
+    "Price": 14.99
+  }
+]}
+
+ 
